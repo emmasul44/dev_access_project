@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queen - Bohemian Rhapsody</title>
+    <style>
+      body {
+        background-color: black;
+        color: white;
+        text-align: center;
+      }
+
+      #container {
+        position: relative;
+        width: 80%;
+        margin: 0 auto;
+        padding-top: 50px;
+      }
+
+      #video {
+        width: 100%;
+        position: relative;
+      }
+
+      #video iframe {
+        width: 100%;
+        height: 315px;
+        /* Set height to match iframe's height */
+        border: 5px solid yellow;
+        /* Set border color and width */
+        box-sizing: border-box;
+        /* Include border in dimensions */
+        margin-bottom: 5px;
+        /* Ensure space below iframe for border */
+      }
+
+      #accessibility-panel {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        box-sizing: border-box;
+      }
+
+      #accessibility-panel button {
+        margin: 5px;
+        padding: 10px;
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1 id="title">Queen - Bohemian Rhapsody</h1>
+      <div id="video">
+        <iframe width="420" height="315" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+      </div>
+    </div>
+    <div id="accessibility-panel">
+      <button onclick="increaseVolume()">Raise Volume</button>
+      <button onclick="enlargeVideo()">Enlarge Video</button>
+      <button onclick="enlargeTitle()">Enlarge Title</button>
+    </div>
+    <script>
+      function increaseVolume() { // Implement volume increase logic here             console.log("Volume increased");         }         function enlargeVideo() {             // Implement video enlargement logic here             console.log("Video enlarged");         }         function enlargeTitle() {             document.getElementById('title').style.fontSize = '3em'; // Increase font size of the title         }     
+    </script>
+  </body>
+</html>
