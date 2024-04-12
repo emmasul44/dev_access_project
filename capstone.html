@@ -1,227 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Queen - Bohemian Rhapsody</title>
-  <style>
-    body {
-      background-color: black;
-      color: white;
-      text-align: center;
-    }
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queen - Bohemian Rhapsody</title>
+    <style>
+      body {
+        background-color: black;
+        color: white;
+        text-align: center;
+      }
 
-    #container {
-      position: relative;
-      width: 80%;
-      margin: 0 auto;
-      padding-top: 50px;
-    }
+      #container {
+        position: relative;
+        width: 80%;
+        margin: 0 auto;
+        padding-top: 50px;
+      }
 
-    #video {
-      width: 100%;
-      position: relative;
-    }
+      #video {
+        width: 100%;
+        position: relative;
+      }
 
-    #video iframe {
-      width: 100%;
-      height: 315px;
-      border: 5px solid yellow;
-      box-sizing: border-box;
-      margin-bottom: 5px;
-    }
+      #video iframe {
+        width: 100%;
+        height: 315px;
+        border: 5px solid yellow;
+        box-sizing: border-box;
+        margin-bottom: 5px;
+      }
 
-    #accessibility-panel {
-      position: relative;
-      bottom: 0;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 10px;
-      box-sizing: border-box;
-    }
+      #accessibility-panel {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        box-sizing: border-box;
+      }
 
-    #accessibility-panel button {
-      margin: 5px;
-      padding: 10px;
-      background-color: #333;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
+      #accessibility-panel button {
+        margin: 5px;
+        padding: 10px;
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
 
-    .bar {
-      /* Add any styling for the bars here */
-    }
-  </style>
-</head>
-<body>
-<div id="container">
-  <h1 id="title">Queen - Bohemian Rhapsody</h1>
-  <div id="video">
-    <iframe width="420" height="315" src="https://www.youtube.com/embed/tgbNymZ7vqY" data-volume="50"></iframe>
-  </div>
-</div>
-<div id="accessibility-panel">
-  <button onclick="raiseVolume()">Raise Volume</button>
-  <button onclick="enlargeVideo()">Enlarge Video</button>
-  <button onclick="enlargeTitle()">Enlarge Title</button>
-  <input type="range" min="0" max="100" value="50" id="volumeSlider" onchange="setVolume(this.value)">
-</div>
-<script>
-  function enlargeVideo() {
-    var video = document.querySelector('#video iframe');
-    video.setAttribute('width', parseFloat(video.getAttribute('width')) + 100);
-    video.setAttribute('height', parseFloat(video.getAttribute('height')) + 100);
-    console.log("Video enlarged");
-  }
+      .bar {}
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1 id="title">Queen - Bohemian Rhapsody</h1>
+      <div id="video">
+        <iframe width="420" height="315" src="https://www.youtube.com/embed/tgbNymZ7vqY" data-volume="50"></iframe>
+      </div>
+    </div>
+    <div id="accessibility-panel">
+      <button onclick="raiseVolume()">Raise Volume</button>
+      <button onclick="enlargeVideo()">Enlarge Video</button>
+      <button onclick="enlargeTitle()">Enlarge Title</button>
+      <input type="range" min="0" max="100" value="50" id="volumeSlider" onchange="setVolume(this.value)">
+    </div>
+    <script>
+      function enlargeVideo() {
+        var video = document.querySelector('#video iframe');
+        video.setAttribute('width', parseFloat(video.getAttribute('width')) + 100);
+        video.setAttribute('height', parseFloat(video.getAttribute('height')) + 100);
+        console.log("Video enlarged");
+      }
 
-  function enlargeTitle() {
-    document.getElementById('title').style.fontSize = '3em';
-  }
+      function enlargeTitle() {
+        document.getElementById('title').style.fontSize = '3em';
+      }
 
-  function raiseVolume() {
-    var video = document.querySelector('#video iframe');
-    var currentVolume = parseFloat(video.getAttribute('data-volume'));
-    var newVolume = Math.min(currentVolume + 10, 100);
-    setVolume(newVolume);
-  }
+      function raiseVolume() {
+        var video = document.querySelector('#video iframe');
+        var currentVolume = parseFloat(video.getAttribute('data-volume'));
+        var newVolume = Math.min(currentVolume + 10, 100);
+        setVolume(newVolume);
+      }
 
-  function setVolume(volume) {
-    var video = document.querySelector('#video iframe');
-    video.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[' + volume + ']}', '*');
-    video.setAttribute('data-volume', volume);
-    console.log("Volume set to " + volume);
-  }
+      function setVolume(volume) {
+        var video = document.querySelector('#video iframe');
+        video.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[' + volume + ']}', '*');
+        video.setAttribute('data-volume', volume);
+        console.log("Volume set to " + volume);
+      }
+      var GAP = 2;
 
-  var GAP = 2;
+      function start() {
+        var song = new Audio("https://codehs.com/uploads/8179d3793582c02c44438d0160d6f0a5");
+        song.play();
+        audioChangeMethod(song, visualize)
+      }
 
-  function start() {
-    // Create the Audio using an audio file URL
-    var song = new Audio("https://codehs.com/uploads/8179d3793582c02c44438d0160d6f0a5");
-    
-    // Play the file
-    song.play();
-    
-    // Call the function `visualize` any time the `song` changes frames
-    audioChangeMethod(song, visualize)
-  }
+      function visualize(frame) {
+        removeAll();
+        var barWidth = (getWidth() - GAP) / frame.length - GAP;
+        for (var i = 0; i < frame.length; i++) {
+          var barHeight = frame[i];
+          var bar = new Rectangle(barWidth, barHeight);
+          var x = GAP + (barWidth + GAP) * i;
+          var y = getHeight() - barHeight;
+          var color = getColor(barHeight);
+          bar.setPosition(x, y);
+          bar.setColor(color);
+          add(bar);
+        }
+      }
 
-  /**
-   * This function will be called every time the song changes
-   * It is passed an array of audio data (a single frame in the song). 
-   * The low indices are low notes
-   * and the high indices are high notes.
-   * Visualize the array by making one bar for each index. The bar width
-   * represents how loud the notes are at that frequency.
-   */
-  function visualize(frame) {
-    // Remove all the bars from the previous frame in the song
-    removeAll();
-    
-    // Set the width of the bars
-    var barWidth = (getWidth() - GAP) / frame.length - GAP;
-    
-    // Make a single bar for each number in the frame
-    for(var i = 0; i < frame.length; i++) {
-      var barHeight = frame[i];
-      
-      var bar = new Rectangle(barWidth, barHeight);
-      var x = GAP + (barWidth + GAP) * i;
-      var y = getHeight() - barHeight;
-      var color = getColor(barHeight);
-      bar.setPosition(x, y);
-      bar.setColor(color);
-      add(bar);
-    }
-  }
+      function getColor(barHeight) {
+        var maxValue = 255;
+        var red = maxValue - barHeight;
+        var blue = barHeight;
+        var green = maxValue;
+        return new Color(red, blue, green);
+      }
 
-  /*
-   * Create a new color expressed as three values RGB for red, green, blue.
-   * Set the green value to be the max possible value
-   * Set the red value to be the max value minus how high the bar is
-   * Set the blue value to be the same as the bar height
-   * The result is a yellow bar that gets more pink the higher it is!
-   */
-  function getColor(barHeight) {
-    var maxValue = 255;
-    var red = maxValue - barHeight;
-    var blue = barHeight;
-    var green = maxValue;
-    return new Color(red, blue, green);
-  }
+      function audioChangeMethod(song, visualize) {
+        song.addEventListener('timeupdate', function() {
+          var audioData = getAudioData(song);
+          visualize(audioData);
+        });
+      }
 
-  // Define necessary functions and classes here
+      function removeAll() {
+        var bars = document.querySelectorAll('.bar');
+        bars.forEach(function(bar) {
+          bar.remove();
+        });
+      }
 
-  function audioChangeMethod(song, visualize) {
-    song.addEventListener('timeupdate', function() {
-      var audioData = getAudioData(song); // Dummy function to get audio data
-      visualize(audioData);
-    });
-  }
+      function getWidth() {
+        return window.innerWidth;
+      }
 
-  function removeAll() {
-    // Dummy function to remove all bars
-    var bars = document.querySelectorAll('.bar');
-    bars.forEach(function(bar) {
-      bar.remove();
-    });
-  }
+      function getHeight() {
+        return window.innerHeight;
+      }
 
-  function getWidth() {
-    return window.innerWidth; // Get window width
-  }
+      function Rectangle(width, height) {
+        this.width = width;
+        this.height = height;
+        this.setPosition = function(x, y) {
+          this.x = x;
+          this.y = y;
+        };
+        this.setColor = function(color) {
+          this.color = color;
+        };
+      }
 
-  function getHeight() {
-    return window.innerHeight; // Get window height
-  }
+      function Color(red, green, blue) {
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+      }
 
-  function Rectangle(width, height) {
-    // Dummy class for creating rectangles
-    this.width = width;
-    this.height = height;
-    this.setPosition = function(x, y) {
-      this.x = x;
-      this.y = y;
-    };
-    this.setColor = function(color) {
-      this.color = color;
-    };
-  }
+      function add(bar) {
+        var div = document.createElement('div');
+        div.className = 'bar';
+        div.style.width = bar.width + 'px';
+        div.style.height = bar.height + 'px';
+        div.style.backgroundColor = 'rgb(' + bar.color.red + ',' + bar.color.green + ',' + bar.color.blue + ')';
+        div.style.position = 'absolute';
+        div.style.left = bar.x + 'px';
+        div.style.top = bar.y + 'px';
+        document.body.appendChild(div);
+      }
 
-  function Color(red, green, blue) {
-    // Dummy class for representing colors
-    this.red = red;
-    this.green = green;
-    this.blue = blue;
-  }
-
-  function add(bar) {
-    // Dummy function to add a bar to the DOM
-    var div = document.createElement('div');
-    div.className = 'bar';
-    div.style.width = bar.width + 'px';
-    div.style.height = bar.height + 'px';
-    div.style.backgroundColor = 'rgb(' + bar.color.red + ',' + bar.color.green + ',' + bar.color.blue + ')';
-    div.style.position = 'absolute';
-    div.style.left = bar.x + 'px';
-    div.style.top = bar.y + 'px';
-    document.body.appendChild(div);
-  }
-
-  // Dummy function to get audio data
-  function getAudioData(song) {
-    // This function should return an array of audio data (frame)
-    // For demonstration purposes, let's return a random array of numbers
-    var frameLength = Math.floor(Math.random() * 100) + 1;
-    var frame = [];
-    for (var i = 0; i < frameLength; i++) {
-      frame.push(Math.floor(Math.random() * 100) + 1); // Random height for bars
-    }
-    return frame;
-  }
-
-  // Start the visualization
-  start();
-</script>
-</body>
+      function getAudioData(song) {
+        var frameLength = Math.floor(Math.random() * 100) + 1;
+        var frame = [];
+        for (var i = 0; i < frameLength; i++) {
+          frame.push(Math.floor(Math.random() * 100) + 1);
+        }
+        return frame;
+      }
+      start();
+    </script>
+  </body>
 </html>
