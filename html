@@ -26,13 +26,9 @@
       #video iframe {
         width: 100%;
         height: 315px;
-        /* Set height to match iframe's height */
         border: 5px solid yellow;
-        /* Set border color and width */
         box-sizing: border-box;
-        /* Include border in dimensions */
         margin-bottom: 5px;
-        /* Ensure space below iframe for border */
       }
 
       #accessibility-panel {
@@ -62,12 +58,36 @@
       </div>
     </div>
     <div id="accessibility-panel">
-      <button onclick="increaseVolume()">Raise Volume</button>
+      <button onclick="raiseVolume()">Raise Volume</button>
       <button onclick="enlargeVideo()">Enlarge Video</button>
       <button onclick="enlargeTitle()">Enlarge Title</button>
+      <input type="range" min="0" max="100" value="50" id="volumeSlider" onchange="setVolume(this.value)">
     </div>
     <script>
-      function increaseVolume() { // Implement volume increase logic here             console.log("Volume increased");         }         function enlargeVideo() {             // Implement video enlargement logic here             console.log("Video enlarged");         }         function enlargeTitle() {             document.getElementById('title').style.fontSize = '3em'; // Increase font size of the title         }     
+      function enlargeVideo() {
+        var video = document.querySelector('#video iframe');
+        video.setAttribute('width', parseFloat(video.getAttribute('width')) + 100);
+        video.setAttribute('height', parseFloat(video.getAttribute('height')) + 100);
+        console.log("Video enlarged");
+      }
+
+      function enlargeTitle() {
+        document.getElementById('title').style.fontSize = '3em';
+      }
+
+      function raiseVolume() {
+        var video = document.querySelector('#video iframe');
+        var currentVolume = parseFloat(video.getAttribute('data-volume'));
+        var newVolume = Math.min(currentVolume + 10, 100);
+        setVolume(newVolume);
+      }
+
+      function setVolume(volume) {
+        var video = document.querySelector('#video iframe');
+        video.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[' + volume + ']}', '*');
+        video.setAttribute('data-volume', volume);
+        console.log("Volume set to " + volume);
+      }
     </script>
   </body>
 </html>
