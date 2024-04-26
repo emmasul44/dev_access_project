@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: left;
+            margin: 100px;
+        }
+
+        input {
+            width: 30%;
+            height: 10px;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="search-container">
+        <h2>Search</h2>
+        <form action="{{ url_for('search') }}" method="post">
+            <label for="search_query">Name:</label>
+            <input type="text" id="search_query" name="search_query" required>
+            <label for="search_type">Type:</label>
+            <select name="search_type" id="search_type">
+              <option value="artist">Artist</option>
+              <option value="song">Song</option>
+              <option value="album">Album</option>
+              <option value="label">Label</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+        <a href="{{ url_for('like_song') }}">Your Liked Songs</a>
+
+        {% if search_results %}
+            <div id="dropdown-container">
+                <ul>
+                    {% if search_type == 'artist' %}
+                        {% for artist in search_results %}
+                            <li><a href="{{ url_for('artist_details', artist_id=artist['ArtistID']) }}">{{ artist['Name'] }}</a></li>
+                        {% endfor %}
+                    {% elif search_type == 'song' %}
+                        {% for song in search_results %}
+                            <li><a href="{{ url_for('song_details', song_id=song['SongID']) }}">{{ song['Song_Title'] }}</a></li>
+                        {% endfor %}
+                    {% elif search_type == 'album' %}
+                        {% for album in search_results %}
+                            <li><a href="{{ url_for('album_details', album_id=album['AlbumID']) }}">{{ album['Album_Title'] }}</a></li>
+                        {% endfor %}
+                    {% elif search_type == 'label' %}
+                        {% for label in search_results %}
+                            <li><a href="{{ url_for('label_details', label_id=label['LabelID']) }}">{{ label['Label_Name'] }}</a></li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+    
+</body>
+</html>
