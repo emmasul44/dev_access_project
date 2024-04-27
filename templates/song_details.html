@@ -26,12 +26,16 @@
         }
 
         button {
-            background-color: #4caf50;
-            color: white;
-            padding: 10px 15px;
+            background-color: transparent; /* Transparent background */
+            color: #ccc; /* Gray color */
+            padding: 0; /* Adjust padding as needed */
             border: none;
-            border-radius: 4px;
             cursor: pointer;
+            font-size: 2em; /* Adjust the font size as needed */
+            transition: color 0.3s; /* Smooth transition for text color */
+        }
+        .liked {
+            color: red; /* Red color */
         }
 
         /* Ratings widget */
@@ -99,16 +103,43 @@
 </head>
 
 <body>
-    <h1>{{ song.song_title }}</h1>
-    <p>Genre: {{ song.genre }}</p>
+    <h1>{{ song.Song_Title }}</h1>
+    <p>Genre: {{ song.Genre }}</p>
     <p>Album: <a href="{{ url_for('album_details', album_id=album['AlbumID']) }}">{{ album.Album_Title }}</a></p>
     <p>Artist: <a href="{{ url_for('artist_details', artist_id=artist['ArtistID']) }}">{{ artist.Name }}</a></p>
 
     
     <form method = "POST" action = "/like">
         <input type="hidden" name="songid" value="{{ song.SongID }}">
-        <button type="submit">Like</button>
+        <button type="submit" id="likeButton"><i class="icon-heart"></i></button>
     </form>
+    <script>
+        // Get the button element
+        var likeButton = document.getElementById('likeButton');
+        var likeForm = document.getElementById('likeForm');
+    
+        // Get the song ID from the URL
+        var url = window.location.href;
+        var songId = url.substring(url.lastIndexOf('/') + 1);
+    
+        // Check if the button has been previously clicked for this song
+        var isLiked = sessionStorage.getItem('liked_' + songId);
+    
+        // If the button has been previously clicked, change its color
+        if (isLiked) {
+            likeButton.classList.add('liked');
+        }
+    
+        // Add a click event listener to the button
+        likeButton.addEventListener('click', function() {
+            // Change the button text color to red
+            likeButton.classList.add('liked');
+            // Store the information that the button has been clicked for this song
+            sessionStorage.setItem('liked_' + songId, 'true');
+            // Prevent the default form submission behavior
+            likeForm.submit();
+        });
+    </script>
     
     <form method="POST" action="/review">      
         <input type="hidden" name="songid" value="{{ song.SongID }}">
