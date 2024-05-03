@@ -103,6 +103,7 @@
 </head>
 
 <body>
+    {% include 'navbar.html' %}
     <h1>{{ song.Song_Title }}</h1>
     <p>Genre: {{ song.Genre }}</p>
     <p>Album: <a href="{{ url_for('album_details', album_id=album['AlbumID']) }}">{{ album.Album_Title }}</a></p>

@@ -105,6 +105,7 @@
 </head>
 
 <body>
+    {% include 'navbar.html' %}
     <h2>{{ artist.Name }}</h2>
     <p>Genre: {{ artist.Genre }}</p>
     <p>Label: <a href="{{ url_for('label_details', label_id=label['LabelID']) }}">{{ label['Label_Name'] }}</a></p>

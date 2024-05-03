@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <style>
+        /* CSS styles for the like_song page */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -23,18 +24,6 @@
             margin: 0;
         }
 
-        li {
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            margin-bottom: 10px;
-            transition: box-shadow 0.3s ease;
-        }
-
-        li:hover {
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
 
         a {
             color: #007bff;
@@ -58,6 +47,7 @@
     </style>
 </head>
 <body>
+    {% include 'navbar.html' %}
     <h2>{{ user.Username }}</h2>
 
     <h3>Liked Songs:</h3>

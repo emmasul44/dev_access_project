@@ -3,25 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer>
-        // JavaScript code for the header
-        document.addEventListener('DOMContentLoaded', function() {
-            var headerContainer = document.getElementById('headerContainer');
-            var headerHTML = `
-                <header>
-                    <nav>
-                        <ul>
-                            <li><a href="{{ url_for('search') }}">Search</a></li>
-                            <li><a href="{{url_for('like_song')}}">Liked Songs</a></li>
-                            <li><a href="{{url_for('login')}}">Login</a></li>
-                            <!-- Add more links as needed -->
-                        </ul>
-                    </nav>
-                </header>
-            `;
-            headerContainer.innerHTML = headerHTML;
-        });
-    </script>
+
     <title>Search</title>
     <style>
         body {
@@ -47,40 +29,12 @@
             border-radius: 4px;
             cursor: pointer;
         }
-        /* Header styles */
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
-        }
-
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        nav ul li {
-            display: inline;
-        }
-
-        nav ul li a {
-            display: inline-block;
-            padding: 14px 16px;
-            text-decoration: none;
-            color: white;
-        }
-
-        nav ul li a:hover {
-            background-color: #ddd;
-            color: black;
-        }
+        
 
     </style>
 </head>
 <body>
-    <div id="headerContainer"></div>
+    {% include 'navbar.html' %}
     <div id="search-container">
         <h2>Search</h2>
         <form action="{{ url_for('search') }}" method="post">

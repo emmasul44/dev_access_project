@@ -1,0 +1,42 @@
+<style>
+    /* CSS styles for the navigation bar */
+    #navbar-header {
+        background-color: #333;
+        color: white;
+        padding: 10px 0;
+    }
+
+    #navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    #navbar ul li {
+        display: inline;
+    }
+
+    #navbar ul li a {
+        display: inline-block;
+        padding: 14px 16px;
+        text-decoration: none;
+        color: white;
+    }
+
+    #navbar ul li a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+</style>
+
+<header id="navbar-header">
+    <nav id="navbar">
+        <ul>
+            <li><a href="{{ url_for('search') }}">Search</a></li>
+            <li><a href="{{ url_for('like_song') }}">Your Liked Songs</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <!-- Add more links as needed -->
+        </ul>
+    </nav>
+</header>
