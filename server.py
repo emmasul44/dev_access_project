@@ -10,19 +10,14 @@ app = Flask(__name__, template_folder=tmpl_dir)
 
 
 # replace this with file path to where the database is on your computer
-DATABASEURI = "sqlite:////Users/cindyruan/musicsite.db"
+DATABASEURI = "sqlite:////Users/cindyruan/w4111-proj1/dev_access_project/musicsite.db"
 print(DATABASEURI)
 
-#
-# This line creates a database engine that knows how to connect to the URI above.
-#
+
 engine = create_engine(DATABASEURI, connect_args={"check_same_thread": False})
 print(engine)
 
-#
-# Example of running queries in your database
-# Note that this will probably not work if you already have a table named 'test' in your database, containing meaningful data. This is only an example showing you how to run queries in your database using SQLAlchemy.
-#
+
 conn = engine.connect()
 print(conn)
 

@@ -1,43 +1,152 @@
-<!-- navbar.html -->
-<style>
-    /* CSS styles for the navigation bar */
-    #navbar-header {
-        background-color: #333;
-        color: white;
-        padding: 10px 0;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Bar</title>
+    <!-- CSS styles for the navigation bar -->
+    <style>
+        #navbar-header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+        }
 
-    #navbar ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-    }
+        #navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
 
-    #navbar ul li {
-        display: inline;
-    }
+        #navbar ul li {
+            display: inline;
+        }
 
-    #navbar ul li a {
-        display: inline-block;
-        padding: 14px 16px;
-        text-decoration: none;
-        color: white;
-    }
+        #navbar ul li a {
+            display: inline-block;
+            padding: 14px 16px;
+            text-decoration: none;
+            color: white;
+        }
 
-    #navbar ul li a:hover {
-        background-color: #ddd;
-        color: black;
-    }
-</style>
+        #navbar ul li a:hover {
+            background-color: #ddd;
+            color: black;
+        }
 
-<header id="navbar-header">
-    <nav id="navbar">
-        <ul>
-            <li><a href="{{ url_for('search') }}">Search</a></li>
-            <li><a href="{{ url_for('like_song') }}">Your Liked Songs</a></li>
-            <li><a href="{{ url_for('login') }}">Login</a></li>
-            <!-- Add more links as needed -->
-        </ul>
-    </nav>
-</header>
+        .btn {
+            display: inline-block;
+            padding: 14px 16px;
+            text-decoration: none;
+            color: white;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            font-size: 16px; /* Adjust font size as needed */
+        }
+
+        .btn:hover {
+            background-color: #ddd;
+            color: black;
+        }
+    </style>
+
+    <!-- CSS styles for the theme switcher -->
+    <style>
+        :root {
+            --white: #ffffff;
+            --white: #ffffff;
+            --black: #000000;
+        }
+
+        * {
+            color: var(--fontColor);
+            font-family: helvetica;
+        }
+
+        body {
+            background: var(--bg);
+        }
+
+        ul {
+            font-family: helvetica;
+        }
+
+        img {
+            width: 200px;
+        }
+
+        li {
+            list-style: circle;
+        }
+
+        .list {
+            list-style: square;
+        }
+
+        .light-theme {
+            --bg: var(--blue);
+            --fontColor: var(--black);
+            --btnBg: var(--black);
+            --btnFontColor: var(--white);
+            --text-color: var(--black);
+        }
+
+        .dark-theme {
+            --bg: var(--black);
+            --fontColor: var(--blue);
+            --btnBg: var(--white);
+            --btnFontColor: var(--black);
+            --text-color: var(--white);
+        }
+
+        .btn:focus { outline-style: none; }
+
+        /* Use the --text-color variable for text color */
+        * {
+            color: var(--text-color);
+            font-family: helvetica;
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <!-- Navigation Bar -->
+    <header id="navbar-header">
+        <nav id="navbar">
+            <ul>
+                <li><a href="{{ url_for('search') }}">Search</a></li>
+                <li><a href="{{ url_for('like_song') }}">Your Liked Songs</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <!-- Add more links as needed -->
+                <li><button class="btn" id="theme-switcher">Dark</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- JavaScript for theme switcher -->
+    <script>
+        'use strict'
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+
+            var className = document.body.className;
+            if (className == "light-theme") {
+                document.documentElement.style.setProperty('--text-color', 'var(--black)');
+                document.getElementById('theme-switcher').textContent = "Dark";
+            } else {
+                document.documentElement.style.setProperty('--text-color', 'var(--white)');
+                document.getElementById('theme-switcher').textContent = "Light";
+            }
+
+            console.log('current class name: ' + className);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const switcher = document.getElementById('theme-switcher');
+            switcher.addEventListener('click', toggleTheme);
+        });
+    </script>
+</body>
+</html>
