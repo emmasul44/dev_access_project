@@ -115,7 +115,7 @@
 
 
     <form method="POST" action="/rate_album">Rate: 
-        <input type="hidden" name="albumid" value="{{ album.albumid }}">
+        <input type="hidden" name="albumid" value="{{ album.AlbumID }}">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <p style="color: red;">{{ messages[0] }}</p>
