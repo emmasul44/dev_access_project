@@ -1,0 +1,48 @@
+<!-- scroll_buttons.html -->
+<style>
+    .scroll-button {
+        position: fixed;
+        bottom: 60px; /* Adjust vertical position */
+        right: 20px; /* Adjust horizontal position */
+        z-index: 9999; /* Ensure buttons appear above other content */
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.5); /* Button background color */
+        color: white; /* Button text color */
+        width: 40px; /* Button width */
+        height: 40px; /* Button height */
+        line-height: 40px; /* Center text vertically */
+        text-align: center; /* Center text horizontally */
+        font-size: 24px; /* Button text size */
+        border-radius: 50%; /* Round button edges */
+    }
+
+    .scroll-button:hover {
+        background-color: rgba(0, 0, 0, 0.7); /* Button background color on hover */
+    }
+
+    #scroll-down-button {
+        bottom: 20px; /* Adjust vertical position for down button */
+    }
+</style>
+
+<div class="scroll-button" id="scroll-up-button">↑</div>
+<div class="scroll-button" id="scroll-down-button">↓</div>
+
+<script>
+    // JavaScript code for scroll buttons
+    $(document).ready(function() {
+        // Scroll up button click event
+        $('#scroll-up-button').click(function() {
+            $('html, body').animate({
+                scrollTop: $(document).scrollTop() - ($(window).height() * 0.1) // Scroll up by 10% of page height
+            }, 1000);
+        });
+
+        // Scroll down button click event
+        $('#scroll-down-button').click(function() {
+            $('html, body').animate({
+                scrollTop: $(document).scrollTop() + ($(window).height() * 0.1) // Scroll down by 10% of page height
+            }, 1000);
+        });
+    });
+</script>

@@ -8,6 +8,9 @@
         It is mainly developed by Ahmed Nefzaoui and can be found at: https://codepen.io/anefzaoui
         Also followed this page as a guide: https://css-tricks.com/star-ratings/ 
     -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include the JavaScript file containing scroll button functions -->
+    <script src="javascript.js"></script>
     <style>        
         @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
         body {
@@ -112,6 +115,7 @@
 
 <body>
     {% include 'navbar.html' %}
+    {% include 'accessibility.html' %}
     <h1>{{ song.Song_Title }}</h1>
     <p>Genre: {{ song.Genre }}</p>
     <p>Album: <a href="{{ url_for('album_details', album_id=album['AlbumID']) }}">{{ album.Album_Title }}</a></p>
